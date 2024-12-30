@@ -1,9 +1,11 @@
 import Express, { Request, Response } from 'express';
 import 'dotenv/config';
 import { DatabaseConnection } from './src/database/database.connection';
-import { createShortenUrlTable } from './src/modules/shorten-url/shorten-url-table/create-shortenurl-table';
+import { CreateShortenUrlTable } from './src/modules/shorten-url/shorten-url-table/create-shortenurl-table';
 import { ShortenUrlController } from './src/modules/shorten-url/shorten-url.controller';
 import { LoggerMiddleware } from './src/middlewares/logger.middleware';
+import { CreateAnalyticsTable } from './src/modules/analytics/analytics-table';
+import { CreateUserTable } from './src/modules/users/user-table';
 
 async function bootStart() {
   try {
@@ -20,7 +22,9 @@ async function bootStart() {
     await dbInstance.connectDatabase();
 
     //Table Creation
-    await createShortenUrlTable();
+    await CreateShortenUrlTable();
+    await CreateUserTable();
+    await CreateAnalyticsTable();
     //health check
     expressApp.get('/health', (req: Request, res: Response) => {
       res.send('Health Check Success');

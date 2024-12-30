@@ -1,6 +1,6 @@
 import { DatabaseConnection } from '../../../database/database.connection';
 
-export const createShortenUrlTable = async () => {
+export const CreateShortenUrlTable = async () => {
   const createTableQuery = `
         CREATE TABLE IF NOT EXISTS shorten_urls (
             id SERIAL PRIMARY KEY,
